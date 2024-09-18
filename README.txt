@@ -4,7 +4,8 @@ Functionally, there is no difference between ArrayList and LinkedList - the impl
 either implementation of the list data structure is still the same. What changes is performance. When using an ArrayList, the tests finish in on average 70ms, while when
 using a LinkedList, on average 15 ms (for the entire test suite). Because this test suite is truly only bottlnecked by the dynamic resizing of the list (using the list.add() method,
 the iteration through the list will cost about the same for both implementations in terms of runtime complexity), the runtime of the completion of all tests
-is a robust enough metric for performance.
+is a robust enough metric for performance. But behaviorally, there is no difference - the interface for both lists are the same and the only changes that needed to be made to the code were in the
+creation of the List object (implementation does not matter).
 
 
 2. What happens if you use list.remove(Integer.valueOf(77))?
@@ -58,6 +59,9 @@ which could be a function of the tests not being robust/complex enough, or in th
 functions that are generally associated with access to elements of the list perform better in the ArrayList implementation, and tests which largely involve dynamic resizing of the list perform better in the LinkedList implementation
 (the effect size between the lists and runtimes of the individual size cannot be accurately measured because the time to complete the tests is so small).
 These results are not meaningful, and within the context of these tests, either type of list implementation will produce similar performance results.
+
+In terms of behavior, both lists perform the same - they have identical interfaces, and so their usage through the test cases did not need to change (i.e. the code in the tests did not need to be changed
+to account for the switch between an ArrayList or LinkedList).
 
 2. What does list.remove(5) do?
 The functional result of this method is the same for both the ArrayList and LinkedList implementations. This method simply
