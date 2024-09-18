@@ -15,16 +15,25 @@ In a linked list, pointers between nodes only need to be changed, and so the ope
 set of tests is addition/deletion, a LinkedList implementation is preferred to the ArrayList (but in the case where fast random access is preferred,
 we would go with the ArrayList, however because the tasks in these unit tests focus more on resizing/insertion/deletion tasks, the LinkedList implementation is preferred).
 
-3. Which values are left in the list after using assertEquals and List.of?
-What is left is 33, 44, 55, and 66. 
-
-4. What is the average (mean) of the values in the list (using an iterator and while loop)?
-
-
-5. Other Notes
 
 TestList.java
 1. Does using a LinkedList make any difference?
 
 
-2. Other Notes
+2. What does list.remove(5) do?
+The functional result of this method is the same for both the ArrayList and LinkedList implementations. This method simply
+removes the element at index 5. In the ArrayList implementation, this method removes the element at index 5 and shuffles the rest of the list into the remaining
+space accordingly. In the LinkedList implementation, this method removes the element at index 5 and adjust pointers from the previous and next element accordingly.
+For this operation, the LinkedList implementation is faster. There are two operations at work here - accessing the element and deleting the element. For accessing the list, the ArrayList
+implementation would be faster and preferred, however, the bottleneck occurs in the actual deletion of the element. For the ArrayList implementation, the worst-case complexity would be O(n) since if we deleted the first element
+instead, the entire list would need to be reshuffled, whereas in the LinkedList implementation we would only need to move pointers, resulting in a worst-case complexity of O(1) or constant time for this operation.
+
+3. What does list.remove(Integer.valueOf(5)) do?
+The functional result of this method is the same for both the ArrayList and LinkedList implementations. This method simply
+removes the first occurrence of the element containing an integer with the value of 5.
+In the ArrayList implementation, this method removes the first occurrence and shuffles the rest of the list into the remaining space accordingly.
+In the LinkedList implementation, this method removes the first occurrence and adjusts pointers from the previous and next element accordingly.
+For this operation, the LinkedList implementation is faster, since the worst-case complexity for the ArrayList implementation of this method would be O(n) (removing the first element would cause the entire list
+to have to be rearranged), while in the case of the LinkedList implementation, the worst-case complexity would be O(1) or constant time since only the pointers would need to be rearranged.
+
+4. Other Notes
