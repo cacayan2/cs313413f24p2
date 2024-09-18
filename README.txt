@@ -75,4 +75,4 @@ In the LinkedList implementation, this method removes the first occurrence and a
 For this operation, the LinkedList implementation is faster, since the worst-case complexity for the ArrayList implementation of this method would be O(n) (removing the first element would cause the entire list
 to have to be rearranged), while in the case of the LinkedList implementation, the worst-case complexity would be O(1) or constant time since only the pointers would need to be rearranged.
 
-test
+test2
