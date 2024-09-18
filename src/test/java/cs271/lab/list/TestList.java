@@ -96,7 +96,7 @@ public class TestList {
     list.add(5);
     list.add(77);
     list.add(6);
-    list.remove(5); // what does this method do?
+    list.remove(5); // (complete) what does this method do?
     // list: {3, 77, 4, 77, 5, 6}
     // (complete) TODO fix the expected values in the assertions below
     assertEquals(6, list.size());

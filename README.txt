@@ -75,4 +75,57 @@ In the LinkedList implementation, this method removes the first occurrence and a
 For this operation, the LinkedList implementation is faster, since the worst-case complexity for the ArrayList implementation of this method would be O(n) (removing the first element would cause the entire list
 to have to be rearranged), while in the case of the LinkedList implementation, the worst-case complexity would be O(1) or constant time since only the pointers would need to be rearranged.
 
-test2
+**TestPerformance.java**
+The value for REPS which allowed for observable effects as problem size increased is REPS = 1000000.
+
+Note on refactoring to DRY: The process of changing test parameters and recording the runtime of each test manually is tedious. To solve this, the tests in TestPerformance.java werwe changed such that:
+- SIZE is no longer a single integer value but an array of integer values that can be changed to fine tune the testing (rather than manually changing SIZE).
+- The tests themselves iterate through SIZE and print out the runtimes of the original test code given the value of the element at some index for SIZE.
+
+There is one major caveat to this code which has not been overcome in this project - in order to run the test, multiple versions of arrayList and linkedList have to be created
+accommodating the different values within the SIZE array. This was achieved by storing the lists in an array of lists.
+Because arrays do not support for the storage of type lists in Java, generic lists were stored in the array. The code still runs, but in practice this should be avoided.
+Because this code exists for the sake of demonstration, this is overlooked, but again in practice is a large oversight of the non-functional requirements of this code.
+
+1. Running times for different values of SIZE (these results were copied and pasted from the printed output of the tests):
+Results for testArrayListAccess()
+SIZE = 10: 19 ms
+SIZE = 100: 20 ms
+SIZE = 1000: 8 ms
+SIZE = 10000: 8 ms
+SIZE = 100000: 8 ms
+-----
+Results for testLinkedListAddRemove()
+SIZE = 10: 38 ms
+SIZE = 100: 55 ms
+SIZE = 1000: 39 ms
+SIZE = 10000: 29 ms
+SIZE = 100000: 32 ms
+-----
+Results for testLinkedListAccess()
+SIZE = 10: 26 ms
+SIZE = 100: 47 ms
+SIZE = 1000: 362 ms
+SIZE = 10000: 6548 ms
+SIZE = 100000: 91498 ms
+-----
+Results for testArrayListAddRemove()
+SIZE = 10: 108 ms
+SIZE = 100: 96 ms
+SIZE = 1000: 174 ms
+SIZE = 10000: 1474 ms
+SIZE = 100000: 21649 ms
+-----
+
+In general, we see the trend that ArrayListAccess() generally does not change (and in fact decreases) with
+the size of the list involved. This is because ArrayListAccess() involves accessing an ArrayList, in which access is done through
+indices, which has O(1) runtime complexity (just accessing the index). We see that runtime testLinkedListAccess() increases dramatically with
+list size, and this is because accessing a specific index in a linked list is a linear process (each node in the list must be iterated through) with a worst-case
+runtime complexity of O(n).
+
+We also see the same trend for testLinkedListAddRemove(). While we don't note the decrease in runtime with an increase in size,
+we see that runtime is generally unaffected by the size of the list. LinkedLists are ideal for dynamic resizing, and because adding/deleting members
+of a linked list only involves moving pointers around (regardless of the size of the list), the worst-case runtime complexity for this operation is O(1).
+We again see the opposite is true for testArrayListAddRemove(), and this is because whenever an index is removed/added, the entire list needs to be shifted element by element to fill
+the empty space. This causes a dramatic increase in runtime as size of the list increases, with a worst-case runtime complexity of O(n), as potentially every
+element of the list might need to be shifted.
